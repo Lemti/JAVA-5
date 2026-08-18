@@ -303,18 +303,5 @@ Unknown database 'productdb'
 
 ---
 
-## 👨‍💻 Auteur
-
-**Harith**  
-IODA - Mobile Development  
-Année 2024-2025
-
----
-
-## 📞 Support
-
-Pour toute question concernant le projet, se référer à la documentation technique complète dans le dossier `documentation/`.
-
----
 
 **Projet réalisé dans le cadre du cours Java Programming V**
