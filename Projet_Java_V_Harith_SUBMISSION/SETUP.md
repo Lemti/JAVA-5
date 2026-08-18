@@ -173,7 +173,7 @@ README.md
 spring.application.name=java5-examen
 server.port=8080
 
-spring.datasource.url=jdbc:mysql://localhost:3306/NOM_BASE?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+spring.datasource.url=jdbc:mysql://localhost:3306/java5_examen?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
 spring.datasource.username=root
 spring.datasource.password=root
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
@@ -183,5 +183,37 @@ spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 ```
 
-Créer la base au préalable : `CREATE DATABASE nom_base;`
-`ddl-auto=update` génère les tables, mais **pas** la base elle-même.
+`ddl-auto=update` génère les **tables**, mais pas la base elle-même.
+D'où `createDatabaseIfNotExist=true` dans l'URL : Spring crée la base au
+démarrage, plus besoin d'ouvrir MySQL avant de coder.
+
+Sans ce paramètre, créer la base à la main :
+```sql
+CREATE DATABASE java5_examen;
+```
+
+### Vérifier MySQL
+
+```
+Get-Service | Where-Object {$_.Name -like "*mysql*"}     → doit être Running
+Start-Service MySQL80                                     → si arrêté
+```
+
+Le client CLI n'est pas dans le PATH par défaut (l'appli Spring n'en a pas
+besoin, mais c'est pratique pour inspecter les données) :
+
+```
+$env:Path += ";C:\Program Files\MySQL\MySQL Server 8.0\bin"
+mysql -u root -p
+```
+
+Mot de passe = celui de `spring.datasource.password` dans le projet du cours.
+Rien ne s'affiche pendant la saisie, c'est normal.
+
+### Lancer l'application
+
+```
+.\mvnw spring-boot:run
+```
+
+Succès = ligne `Started ...Application in X seconds`.
